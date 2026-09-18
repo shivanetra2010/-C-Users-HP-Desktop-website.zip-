@@ -21,10 +21,14 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: '22'
 
-      - name: Build static site
-        run: echo "No build required for static site"
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -47,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_FA3D48AC85AF42349BE5D5EBF9ACE7D8 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_07B9B9B8F2AB4017AF96EC502376DACF }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DF25F016A6154DCBAD84E32BD7D3077C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_971B85E8A2C2456ABAA1B7D7308B0E1D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CB62844328C84269AC086EE7198784F3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3A8C9A728E244A3DADF3519EE9A10957 }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
